@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList } from 'react-native';
 
 export default function App() {
 
   const [goal, setGoal] = useState('')
+  const [goals, setGoals] = useState([])
 
   function goalInputHandler(text) {
     // console.log(text)
@@ -11,7 +12,8 @@ export default function App() {
   }
 
   function addGoalHandler() {
-    console.log(goal)
+    // console.log(goal)
+    setGoals(currentGoals => [...currentGoals, {text: goal, key: Math.random().toString()}])
   }
 
   return (
@@ -25,8 +27,24 @@ export default function App() {
         />
         <Button title="Add" onPress={addGoalHandler} />
       </View>
-      <View style={styles.goalsContainer} >
-        <Text>List of goals</Text>
+      <View style={styles.goalsContainer}>
+        <FlatList
+          data={goals}
+          renderItem={(itemData) => {
+            itemData.index
+            return (
+              <View style={styles.goalItem}>
+                <Text style={styles.goalText}>
+                  {itemData.item.text}
+                </Text>
+              </View>
+            )
+          }}
+          keyExtractor={(item, index) => {
+            return item.key
+          }}
+          alwaysBounceVertical={false}>
+        </FlatList>
       </View>
     </View>
   );
@@ -35,13 +53,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#fff',
-    padding: 10,
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    padding: 10
   },
   greeting: {
-    // flex: 1,
     backgroundColor: '#fff',
     marginTop: 30,
     textAlign: 'center'
@@ -68,5 +82,15 @@ const styles = StyleSheet.create({
     flex: 9,
     marginTop: 10,
     paddingHorizontal: 15
+  },
+  goalItem: {
+    margin: 6,
+    padding: 5,
+    borderRadius: 6,
+    backgroundColor: '#5e0acc',
+  },
+  goalText: {
+    padding: 3,
+    color: 'white'
   }
 });
