@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, View, FlatList, Button } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 import GoalItem from './components/GoalItem';
@@ -35,11 +35,13 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <View style={styles.appContainer}>
+        <Text style={styles.greeting}>Hello, young Goal-Setter!</Text>
         <View style={styles.addBtn}>
           <Button
             title="Add a New Goal"
-            color="#a065ec"
+            color="#073b4c"
             onPress={startAddGoalHandler}
+            accessibilityLabel="Add a New Goal"
           />
         </View>
         <GoalInput
@@ -75,15 +77,21 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     paddingHorizontal: 16,
-    backgroundColor: '#311b6b'
+    backgroundColor: 'white'
+  },
+  greeting: {
+    fontSize: 20,
+    color: '#073b4c',
+    marginTop: 30,
+    textAlign: 'center'
   },
   goalsContainer: {
     flex: 5,
   },
   addBtn: {
     margin: 10,
-    marginTop: 30,
-    borderColor: '#a065ec',
+    marginTop: 20,
+    borderColor: '#073b4c',
     borderWidth: 1,
     borderRadius: 5,
     padding: 5

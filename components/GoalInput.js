@@ -9,7 +9,9 @@ function GoalInput(props) {
   }
 
   function addGoalHandler() {
-    props.onAddGoal(enteredGoalText);
+    if (enteredGoalText.length > 0) {
+      props.onAddGoal(enteredGoalText);
+    }
     setEnteredGoalText('');
   }
 
@@ -22,16 +24,26 @@ function GoalInput(props) {
         />
         <TextInput
           style={styles.textInput}
-          placeholder="Add your goal here"
+          placeholder="Add your goal and hit Return"
           onChangeText={goalInputHandler}
           value={enteredGoalText}
         />
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
-            <Button title="Add" onPress={addGoalHandler} color="#b180f0" />
+            <Button
+              title="Add"
+              onPress={addGoalHandler}
+              color="#06d6a0"
+              accessibilityLabel="Add"
+            />
           </View>
           <View style={styles.button}>
-            <Button title="Cancel" onPress={props.onCancel} color="#f31282" />
+            <Button
+              title="Cancel"
+              onPress={props.onCancel}
+              color="#ef476f"
+              accessibilityLabel="Cancel"
+            />
           </View>
         </View>
       </View>
@@ -47,7 +59,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#311b6b',
+    backgroundColor: '#073b4c',
   },
   image: {
     width: 100,
@@ -56,8 +68,8 @@ const styles = StyleSheet.create({
   },
   textInput: {
     borderWidth: 1,
-    borderColor: '#e4d0ff',
-    backgroundColor: '#e4d0ff',
+    borderColor: 'white',
+    backgroundColor: 'white',
     color: '#120438',
     borderRadius: 6,
     width: '100%',
@@ -70,5 +82,8 @@ const styles = StyleSheet.create({
   button: {
     width: 100,
     marginHorizontal: 8,
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 5
   },
 });
