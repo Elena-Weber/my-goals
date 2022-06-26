@@ -35,11 +35,13 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <View style={styles.appContainer}>
-        <Button
-          title="Add a New Goal"
-          color="#a065ec"
-          onPress={startAddGoalHandler}
-        />
+        <View style={styles.addBtn}>
+          <Button
+            title="Add a New Goal"
+            color="#a065ec"
+            onPress={startAddGoalHandler}
+          />
+        </View>
         <GoalInput
           visible={modalIsVisible}
           onAddGoal={addGoalHandler}
@@ -73,8 +75,17 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     paddingHorizontal: 16,
+    backgroundColor: '#311b6b'
   },
   goalsContainer: {
     flex: 5,
   },
+  addBtn: {
+    margin: 10,
+    marginTop: 30,
+    borderColor: '#a065ec',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 5
+  }
 });

@@ -4,9 +4,9 @@ function GoalItem(props) {
   return (
     <View style={styles.goalItem}>
       <Pressable
-        android_ripple={{ color: '#210644' }}
         onPress={props.onDeleteItem.bind(this, props.id)}
-        style={({ pressed }) => pressed && styles.pressedItem}
+        android_ripple={{ color: '#210644' }}
+        style={({ pressed }) => pressed && styles.pressedItem} // for iphone, like a ripple effect for android
       >
         <Text style={styles.goalText}>{props.text}</Text>
       </Pressable>
@@ -27,6 +27,6 @@ const styles = StyleSheet.create({
   },
   goalText: {
     color: 'white',
-    padding: 8,
+    padding: 12
   },
 });
