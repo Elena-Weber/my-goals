@@ -1,51 +1,74 @@
 import { useState } from 'react';
-import { StyleSheet, View, Button, TextInput } from 'react-native';
+import {  View, TextInput, Button, StyleSheet, Modal, Image } from 'react-native';
 
 function GoalInput(props) {
+  const [enteredGoalText, setEnteredGoalText] = useState('');
 
-    const [goal, setGoal] = useState('');
+  function goalInputHandler(enteredText) {
+    setEnteredGoalText(enteredText);
+  }
 
-    function goalInputHandler(text) {
-        setGoal(text);
-    }
+  function addGoalHandler() {
+    props.onAddGoal(enteredGoalText);
+    setEnteredGoalText('');
+  }
 
-    function addGoalHandler() {
-        props.onAddGoal(goal);
-        setGoal('');
-    }
-
-    return (
-        <View style={styles.inputContainer} >
-            <TextInput
-                placeholder='Type your goal here'
-                style={styles.input}
-                onChangeText={goalInputHandler}
-                value={goal}
-            />
-            <Button title="Add" onPress={addGoalHandler} />
+  return (
+    <Modal visible={props.visible} animationType="slide">
+      <View style={styles.inputContainer}>
+        <Image
+          style={styles.image}
+          source={require('../assets/images/goal.png')}
+        />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Add your goal here"
+          onChangeText={goalInputHandler}
+          value={enteredGoalText}
+        />
+        <View style={styles.buttonContainer}>
+          <View style={styles.button}>
+            <Button title="Add" onPress={addGoalHandler} color="#b180f0" />
+          </View>
+          <View style={styles.button}>
+            <Button title="Cancel" onPress={props.onCancel} color="#f31282" />
+          </View>
         </View>
-    )
+      </View>
+    </Modal>
+  );
 }
 
 export default GoalInput;
 
 const styles = StyleSheet.create({
-    inputContainer: {
-        padding: 15,
-        marginBottom: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottomWidth: 1,
-        borderBottomColor: '#cccccc',
-        flex: 1
-    },
-    input: {
-        marginRight: 10,
-        padding: 5,
-        borderWidth: 1,
-        borderColor: '#cccccc',
-        width: '85%',
-        borderRadius: 8
-    }
-})
+  inputContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+    backgroundColor: '#311b6b',
+  },
+  image: {
+    width: 100,
+    height: 100,
+    margin: 20,
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor: '#e4d0ff',
+    backgroundColor: '#e4d0ff',
+    color: '#120438',
+    borderRadius: 6,
+    width: '100%',
+    padding: 10,
+  },
+  buttonContainer: {
+    marginTop: 16,
+    flexDirection: 'row',
+  },
+  button: {
+    width: 100,
+    marginHorizontal: 8,
+  },
+});
