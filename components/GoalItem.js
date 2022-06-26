@@ -1,10 +1,10 @@
-import {StyleSheet} from 'react-native'
+import { StyleSheet, Text, View } from 'react-native';
 
-function GoalItem() {
+function GoalItem(props) {
     return (
         <View style={styles.goalItem}>
             <Text style={styles.goalText}>
-                {itemData.item.text}
+                {props.text}
             </Text>
         </View>
     )

@@ -1,39 +1,28 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
-import GoalItem from './components/GoalItem'
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import GoalItem from './components/GoalItem';
+import GoalInput from './components/GoalInput';
 
 export default function App() {
 
-  const [goal, setGoal] = useState('')
   const [goals, setGoals] = useState([])
 
-  function goalInputHandler(text) {
-    // console.log(text)
-    setGoal(text)
-  }
-
-  function addGoalHandler() {
-    // console.log(goal)
-    setGoals(currentGoals => [...currentGoals, {text: goal, key: Math.random().toString()}])
+  function addGoalHandler(goal) {
+    setGoals(currentGoals => [
+      ...currentGoals,
+      {text: goal, key: Math.random().toString()}
+    ])
   }
 
   return (
     <View style={styles.container} >
       <Text style={styles.greeting}>Hello, Goal-Setter!</Text>
-      <View style={styles.inputContainer} >
-        <TextInput
-          placeholder='Type your goal here'
-          style={styles.input}
-          onChangeText={goalInputHandler}
-        />
-        <Button title="Add" onPress={addGoalHandler} />
-      </View>
+      <GoalInput onAddGoal={addGoalHandler} />
       <View style={styles.goalsContainer}>
         <FlatList
           data={goals}
           renderItem={(itemData) => {
-            // itemData.index
-            return <GoalItem />
+            return <GoalItem text={itemData.item.text} />
           }}
           keyExtractor={(item, index) => {
             return item.key
@@ -54,24 +43,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginTop: 30,
     textAlign: 'center'
-  },
-  inputContainer: {
-    padding: 15,
-    marginBottom: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderBottomColor: '#cccccc',
-    flex: 1
-  },
-  input: {
-    marginRight: 10,
-    padding: 5,
-    borderWidth: 1,
-    borderColor: '#cccccc',
-    width: '85%',
-    borderRadius: 8
   },
   goalsContainer: {
     flex: 9,
